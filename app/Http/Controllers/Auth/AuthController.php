@@ -28,9 +28,11 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            
+            return redirect('home')->with('login_success', 'ログイン成功しました!');
         }
-
         
+        return back()->withErrors([
+            'login_error' => 'メールアドレスかパスワードが間違っています。',
+        ]);
     }
 }
